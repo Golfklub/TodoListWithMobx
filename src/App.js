@@ -1,28 +1,41 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import TodoList from "./TodoList";
+import { observableTodoStore } from "./TodoStore";
+import { Input, DatePicker, Layout } from "antd";
+import "antd/dist/antd.css";
+import styled from "styled-components";
+import { observer, Provider } from "mobx-react";
+import { TodosList } from "./FirebaseStore";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+// const TodoStore = new observableTodoStore();
+
+const App = observer(
+  class App extends Component {
+    render() {
+      const CustomContent = styled.div`
+        background: #ffffff;
+        width: 30%;
+        padding: 30px;
+        margin: auto;
+      `;
+
+      return (
+        <div
+          style={{
+            textAlign: "center",
+            backgroundColor: "#f2f2f2",
+            height: "100vh",
+            paddingTop: 30
+          }}
+        >
+          <CustomContent>
+            <Provider TodoStore={observableTodoStore}>
+              <TodoList />
+            </Provider>
+          </CustomContent>
+        </div>
+      );
+    }
   }
-}
-
+);
 export default App;
